@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "binary_trees.h"
 /**
- * binary_tree_postorder -  measures the depth of a node in a binary tree
+ * binary_tree_depth -  measures the depth of a node in a binary tree
  * @tree: is the whole tree
  *
  * Return: tree is NULL, the function must return 0, otherwise return the num

@@ -20,10 +20,10 @@ int binary_tree_is_leaf(const binary_tree_t *node)
 }
 
 /**
- * binary_tree_leaves - counts the leaves in a binary tree
+ * total - Is the total of the leaf
  * @tree: is the whole tree
+ * @result: is a pointer to the total of the leafs
  *
- * Return: tree is NULL, the function must return 0, otherwise return the num
  */
 
 void total(const binary_tree_t *tree, int *result)

@@ -7,7 +7,6 @@
  *
  * Return: tree is NULL, the function must return 0, otherwise return the num
  */
-
 size_t binary_tree_depth(const binary_tree_t *tree)
 {
 	const binary_tree_t *aux = NULL;
@@ -45,26 +44,26 @@ int binary_tree_is_branch(const binary_tree_t *node)
  */
 binary_tree_t *binary_tree_uncle(binary_tree_t *node)
 {
-     int depth = 0;
-     binary_tree_t *grand_parent = NULL, *n_parent = NULL;
+	binary_tree_t *grand_parent = NULL, *n_parent = NULL;
+	int depth = 0;
 
-     if (node == NULL)
-          return (NULL);
+	if (node == NULL)
+		return (NULL);
 
-     depth = binary_tree_depth(node);
+	depth = binary_tree_depth(node);
 
-     if (depth < 2)
-          return (NULL);
+	if (depth < 2)
+		return (NULL);
 
-     if (binary_tree_is_branch(node->parent->parent) == 0)
-          return (NULL);
+	if (binary_tree_is_branch(node->parent->parent) == 0)
+		return (NULL);
 
-     grand_parent = node->parent->parent;
-     n_parent = node->parent;
+	grand_parent = node->parent->parent;
+	n_parent = node->parent;
 
-     if (grand_parent->right == n_parent)
-          return (grand_parent->left);
+	if (grand_parent->right == n_parent)
+		return (grand_parent->left);
 
-     return (grand_parent->right);
+	return (grand_parent->right);
 
 }
