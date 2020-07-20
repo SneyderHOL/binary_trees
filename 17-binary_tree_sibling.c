@@ -3,14 +3,15 @@
 
 /**
  * binary_tree_sibling - function that finds the sibling of a node
- * @tree: is a pointer to the node to find the sibling
+ * @node: is a pointer to the node to find the sibling
  *
- * Return: pointer to the sibling node, or NULL if the node is NULL, or the parent is NULL, or the node has no sibling.
+ * Return: pointer to the sibling node, or NULL if the node is NULL, or the
+ * parent is NULL, or the node has no sibling.
  */
 
 binary_tree_t *binary_tree_sibling(binary_tree_t *node)
 {
-	binary_tree_t * aux = NULL;
+	binary_tree_t *aux = NULL;
 
 	if (node == NULL)
 		return (NULL);
