@@ -45,8 +45,8 @@ int binary_tree_is_branch(const binary_tree_t *node)
  */
 binary_tree_t *binary_tree_uncle(binary_tree_t *node)
 {
-     int depth = 0, n_parent = 0;
-     binary_tree_t *parent = NULL;
+     int depth = 0;
+     binary_tree_t *grand_parent = NULL, *n_parent = NULL;
 
      if (node == NULL)
           return (NULL);
@@ -56,16 +56,15 @@ binary_tree_t *binary_tree_uncle(binary_tree_t *node)
      if (depth < 2)
           return (NULL);
 
-     if (binary_tree_is_branch(node->parent) == 0)
+     if (binary_tree_is_branch(node->parent->parent) == 0)
           return (NULL);
-     parent = node->parent->parent;
-     n_parent = node->parent->n;
 
-     if (parent->right->n == n_parent)
-          return (parent->left);
+     grand_parent = node->parent->parent;
+     n_parent = node->parent;
 
-     if (parent->left->n == n_parent)
-          return (parent->right);
+     if (grand_parent->right == n_parent)
+          return (grand_parent->left);
 
-     return (node);
+     return (grand_parent->right);
+
 }
