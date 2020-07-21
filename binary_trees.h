@@ -64,5 +64,7 @@ binary_tree_t *binary_tree_uncle(binary_tree_t *node);
 /* task 100*/
 binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
   const binary_tree_t *second);
+/* task 102*/
+int binary_tree_is_complete(const binary_tree_t *tree);
 
 #endif /* BINARY_TREES_H */
