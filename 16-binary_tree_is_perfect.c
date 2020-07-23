@@ -58,8 +58,7 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 			binary_tree_is_perfect(tree->right));
 	}
 	if (tree->left == NULL && tree->right == NULL)
-	{
 		return (leaf_depth((int) binary_tree_depth(tree)));
-	}
+
 	return (0);
 }
