@@ -1,71 +1,46 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include "binary_trees.h"
+
 /**
- * binary_tree_height - function that measures the height of a binary tree
- * @tree: is a pointer to the root node of a tree to measure the height
+ * leaf_depth - store the initial depth of the first leaf and compares with
+ * other leafs
+ * @depth_leaf: depth value of the leaf
  *
- * Return: the height of the tree, or 0 if tree is NULL
+ * Return: 1 if the depths values are the same, 0 otherwise
  */
 
-size_t binary_tree_height(const binary_tree_t *tree)
+int leaf_depth(int depth_leaf)
 {
-	size_t height_l = 0, height_r = 0;
+	static int depth = -1;
+
+	if (depth == -1)
+		depth = depth_leaf;
+	else
+	{
+		if (depth != depth_leaf)
+			return (0);
+	}
+	return (1);
+}
+/**
+ * binary_tree_depth -  measures the depth of a node in a binary tree
+ * @tree: is the whole tree
+ *
+ * Return: tree is NULL, the function must return 0, otherwise return the num
+ */
+
+size_t binary_tree_depth(const binary_tree_t *tree)
+{
+	const binary_tree_t *aux = NULL;
+	size_t i = -1;
 
 	if (tree == NULL)
 		return (0);
-	if (tree->left != NULL)
-		height_l = 1 + binary_tree_height(tree->left);
-	if (tree->right != NULL)
-		height_r = 1 + binary_tree_height(tree->right);
-	if (height_l > height_r)
-		return (height_l);
-	return (height_r);
+	for (aux = tree; aux != NULL; aux = aux->parent, i++)
+		;
+
+	return (i);
 }
-
-
-/**
- * binary_tree_balance - measures the balance factor of a binary tree
- * @tree: is a pointer to the root node of the tree to measure the
- * balance factor
- *
- * Return: the balance number to the tree
- */
-int binary_tree_balance(const binary_tree_t *tree)
-{
-	int left = 0, right = 0;
-
-	if (tree == NULL)
-		return (0);
-	if (tree->left)
-		left = 1;
-	if (tree->right)
-		right = 1;
-
-	left += binary_tree_height(tree->left);
-	right += binary_tree_height(tree->right);
-
-	return (left - right);
-}
-/**
- * binary_tree_is_full - function that checks if a binary tree is full
- * @tree: is a pointer to the root node of a tree to check
- *
- * Return: 1 if the tree is full, 0 otherwise or if is NULL
- */
-
-int binary_tree_is_full(const binary_tree_t *tree)
-{
-	if (tree == NULL)
-		return (0);
-	if (tree->left == NULL && tree->right == NULL)
-		return (1);
-	if (tree->left != NULL && tree->right != NULL)
-		return (1 * binary_tree_is_full(tree->left) *
-			binary_tree_is_full(tree->right));
-	return (0);
-}
-
 
 /**
  * binary_tree_is_perfect -  checks if a binary tree is perfect
@@ -77,12 +52,14 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 {
 	if (tree == NULL)
 		return (0);
-
-	if (binary_tree_balance(tree) == 0)
+	if (tree->left != NULL && tree->right != NULL)
 	{
-		if (binary_tree_is_full(tree) == 1)
-			return (1);
+		return (1 * binary_tree_is_perfect(tree->left) *
+			binary_tree_is_perfect(tree->right));
 	}
-
+	if (tree->left == NULL && tree->right == NULL)
+	{
+		return (leaf_depth((int) binary_tree_depth(tree)));
+	}
 	return (0);
 }
