@@ -1,12 +1,7 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "binary_trees.h"
 
-binary_tree_t *funcion(binary_tree_t *tree)
-{
-	if (tree == NULL)
-		return (NULL);
-
-}
 
 /**
  * binary_tree_levelorder - goes through a binary tree using level-order
@@ -18,25 +13,25 @@ binary_tree_t *funcion(binary_tree_t *tree)
 
 void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 {
-	binary_tree_t *left = NULL, *right = NULL, *aux = NULL;
+
+	const binary_tree_t *queue[1024];
+	const binary_tree_t *node_to_print = NULL;
+	int front = 0, count = 0;
 
 	if (tree == NULL || func == NULL)
 		return;
-	aux = tree;
-	left = tree->left;
-	right = tree->right;
-	if (tree->parent == NULL)
-		func(tree->n);
-	while (left != NULL || right != NULL)
+
+	queue[front + count++] = tree;
+
+	while (count--)
 	{
-		if (left != NULL)
-			func(left->n);
-			/*funcion(left);*/
-		if (right != NULL)
-			func(right->n);
-			/*funcion(right);*/
-		
+		node_to_print = queue[front];
+		front++;
+		func(node_to_print->n);
+
+		if (node_to_print->left)
+			queue[front + count] = node_to_print->left, count++;
+		if (node_to_print->right)
+			queue[front + count] = node_to_print->right, count++;
 	}
-	/*binary_tree_preorder(tree->left, func);
-	  binary_tree_preorder(tree->right, func);*/
 }
