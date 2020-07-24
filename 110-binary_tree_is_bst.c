@@ -1,49 +1,62 @@
 #include <stdio.h>
 #include "binary_trees.h"
-int max_value(const binary_tree_t *temp)
-{
-	int number_left = 0, number_right = 0, max = temp->n;
 
-	if(temp->left != NULL)
+/**
+ * max_value - checks the max of a binary tree
+ * @tree: checks the max of a binary tree
+ *
+ * Return: the min of the binary tree
+ */
+int max_value(const binary_tree_t *tree)
+{
+	int number_left = 0, number_right = 0, max = tree->n;
+
+	if (tree->left != NULL)
 	{
-		number_left = max_value(temp->left);
+		number_left = max_value(tree->left);
 		if (max < number_left)
 			max = number_left;
 	}
 
-	if(temp->right != NULL)
+	if (tree->right != NULL)
 	{
-		number_right = max_value(temp->right);
+		number_right = max_value(tree->right);
 		if (max < number_right)
 			max = number_right;
 	}
 
-	return max;
+	return (max);
 }
-
-int min_value(const binary_tree_t *temp)
+/**
+ * min_value - checks the max of a binary tree
+ * @tree: checks the max of a binary tree
+ *
+ * Return: the min of the binary tree
+ */
+int min_value(const binary_tree_t *tree)
 {
-	int number_left = 0, number_right = 0, max = temp->n;
+	int number_left = 0, number_right = 0, max = tree->n;
 
-	if(temp->left != NULL)
+	if (tree->left != NULL)
 	{
-		number_left = min_value(temp->left);
+		number_left = min_value(tree->left);
 		if (max > number_left)
 			max = number_left;
 	}
 
-	if(temp->right != NULL)
+	if (tree->right != NULL)
 	{
-		number_right = min_value(temp->right);
+		number_right = min_value(tree->right);
 		if (max > number_right)
 			max = number_right;
 	}
 
-	return max;
+	return (max);
 }
 
 /**
- * binary_tree_rotate_right - checks if a binary tree is a valid Binary Search Tree
+ * binary_tree_is_bst - checks if a binary tree is a valid
+ * Binary Search Tree
  * @tree: checks if a binary tree is a valid Binary Search Tree
  *
  * Return: 1 if tree is a valid BST, and 0 otherwise
@@ -51,7 +64,6 @@ int min_value(const binary_tree_t *temp)
 int binary_tree_is_bst(const binary_tree_t *tree)
 {
 	int val = 1;
-
 
 	if (tree != NULL)
 	{
