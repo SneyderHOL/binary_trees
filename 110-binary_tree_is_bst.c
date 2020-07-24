@@ -17,7 +17,7 @@ int binary_tree_left_side(const binary_tree_t *tree, int num)
 	if (tree->left != NULL)
 	{
 		if (tree->left->n < tree->n)
-			left *= binary_tree_left_side(tree->left, num);
+			left *= binary_tree_left_side(tree->left, tree->n);
 		else
 			return (0);
 	}
@@ -59,7 +59,7 @@ int binary_tree_right_side(const binary_tree_t *tree, int num)
 	if (tree->right != NULL)
 	{
 		if (tree->right->n > tree->n)
-			right *= binary_tree_left_side(tree->right, num);
+			right *= binary_tree_left_side(tree->right, tree->n);
 		else
 			return (0);
 	}
@@ -80,8 +80,6 @@ int binary_tree_is_bst(const binary_tree_t *tree)
 	int left = 1, right = 1;
 
 	if (tree == NULL)
-		return (0);
-	if (tree->left != NULL && tree->right == NULL)
 		return (0);
 	if (tree->left != NULL)
 	{
