@@ -1,83 +1,103 @@
-#include <stdio.h>
+#include <stdlib.h>
 #include "binary_trees.h"
 
 /**
- * max_value - checks the max of a binary tree
- * @tree: checks the max of a binary tree
+ * binary_tree_left_side - checks if a binary subtree is a valid Binary
+ * Search Tree
+ * @tree: is a pointer to the root node of a tree to check
+ * @num: number of root node
  *
- * Return: the min of the binary tree
+ * Return: 1 if binary subtree is a valid BST, or 0 otherwise
  */
-int max_value(const binary_tree_t *tree)
+
+int binary_tree_left_side(const binary_tree_t *tree, int num)
 {
-	int number_left = 0, number_right = 0, max = tree->n;
+	int left = 1, right = 1;
 
 	if (tree->left != NULL)
 	{
-		number_left = max_value(tree->left);
-		if (max < number_left)
-			max = number_left;
+		if (tree->left->n < tree->n)
+			left *= binary_tree_left_side(tree->left, tree->n);
+		else
+			return (0);
 	}
-
+	if (left == 0)
+		return (0);
 	if (tree->right != NULL)
 	{
-		number_right = max_value(tree->right);
-		if (max < number_right)
-			max = number_right;
+		if (tree->right->n > tree->n && tree->right->n < num)
+			right *= binary_tree_left_side(tree->right, num);
+		else
+			return (0);
 	}
-
-	return (max);
+	if (right == 0)
+		return (0);
+	return (1);
 }
 /**
- * min_value - checks the max of a binary tree
- * @tree: checks the max of a binary tree
+ * binary_tree_right_side -  checks if a binary subtree is a valid Binary
+ * Search Tree
+ * @tree: is a pointer to the root node of a tree to check
+ * @num: number of root node
  *
- * Return: the min of the binary tree
+ * Return: 1 if binary subtree is a valid BST, or 0 otherwise
  */
-int min_value(const binary_tree_t *tree)
+
+int binary_tree_right_side(const binary_tree_t *tree, int num)
 {
-	int number_left = 0, number_right = 0, max = tree->n;
+	int left = 1, right = 1;
 
 	if (tree->left != NULL)
 	{
-		number_left = min_value(tree->left);
-		if (max > number_left)
-			max = number_left;
+		if (tree->left->n < tree->n && tree->left->n > num)
+			left *= binary_tree_left_side(tree->left, num);
+		else
+			return (0);
 	}
-
+	if (left == 0)
+		return (0);
 	if (tree->right != NULL)
 	{
-		number_right = min_value(tree->right);
-		if (max > number_right)
-			max = number_right;
+		if (tree->right->n > tree->n)
+			right *= binary_tree_left_side(tree->right, tree->n);
+		else
+			return (0);
 	}
-
-	return (max);
+	if (right == 0)
+		return (0);
+	return (1);
 }
 
 /**
- * binary_tree_is_bst - checks if a binary tree is a valid
- * Binary Search Tree
- * @tree: checks if a binary tree is a valid Binary Search Tree
+ * binary_tree_is_bst -  checks if a binary tree is a valid Binary Search Tree
+ * @tree: is a pointer to the root node of a tree to check
  *
- * Return: 1 if tree is a valid BST, and 0 otherwise
+ * Return: 1 if binary tree is a valid BST, or 0 otherwise
  */
+
 int binary_tree_is_bst(const binary_tree_t *tree)
 {
-	int val = 1;
+	int left = 1, right = 1;
 
-	if (tree != NULL)
+	if (tree == NULL)
+		return (0);
+	if (tree->left != NULL)
 	{
-
-		if (tree->left != NULL && max_value(tree->left) > tree->n)
+		if (tree->left->n < tree->n)
+			left = binary_tree_left_side(tree->left, tree->n);
+		else
 			return (0);
-
-		if (tree->right != NULL && min_value(tree->right) < tree->n)
-			return (0);
-
-		val *= binary_tree_is_bst(tree->left);
-		val *= binary_tree_is_bst(tree->right);
 	}
-
-	return (val);
-
+	if (left == 0)
+		return (0);
+	if (tree->right != NULL)
+	{
+		if (tree->right->n > tree->n)
+			right = binary_tree_right_side(tree->right, tree->n);
+		else
+			return (0);
+	}
+	if (right == 0)
+		return (0);
+	return (1);
 }
